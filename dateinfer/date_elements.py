@@ -307,3 +307,26 @@ class Year4(DateElement):
     @staticmethod
     def is_numerical():
         return True
+
+
+class Datetime8(DateElement):
+    """20190223 .. 20200304"""
+
+    directive = '%Y%m%d'
+
+    @staticmethod
+    def is_match(token):
+        if len(token) != 8:
+            return False
+        try:
+            year, month, day = int(token[0:4]), int(token[4:6]), int(token[6:8])
+            year_check = 1800 <= year <= 2100
+            month_check = 1 <= month <= 12
+            day_check = 1 <= day <= 31
+            return year_check and month_check and day_check
+        except ValueError:
+            return False
+
+    @staticmethod
+    def is_numerical():
+        return True
